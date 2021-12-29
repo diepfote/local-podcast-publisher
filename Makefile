@@ -18,9 +18,9 @@ install:
 
 .PHONY: run-file-server
 run-file-server:
-	sudo sysctl -w net.ipv4.ip_unprivileged_port_start=80
+	# sudo sysctl -w net.ipv4.ip_unprivileged_port_start=80
 	sudo -k
-	docker run --rm --name blub -p 80:8080 \
+	docker run --rm --name blub -p 8080:8080 \
 		-v "$(shell pwd)"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
 		-v "$(shell pwd)":/data \
 		-it \
