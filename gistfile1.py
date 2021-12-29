@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
+# Original script nicked from https://gist.github.com/xlexi/78f8483fa992f2ed544d
+
 from bs4 import BeautifulSoup
 from feedgen.feed import FeedGenerator, FeedEntry
 from urllib import request
