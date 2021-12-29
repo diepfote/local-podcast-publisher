@@ -17,5 +17,19 @@ make run-file-server
 
 2nd pane:
 ```
-host="$(local-ip)" port=8080 make run-feed-generator
+host=<local-ip> port=8080 make run-feed-generator
 ```
+
+## Acccess
+
+```
+# test
+curl <local-ip>:8080/TGS%20Podcast.xml
+```
+
+Enter the url above into the Apple Podcast app.  
+Your podcast will now appear as `subscribed`.  
+For as long as your `<local-ip>` stays the same,
+you can use this podcast feed to make episodes
+available offline.
+
