@@ -17,7 +17,7 @@ make run-file-server
 
 2nd pane:
 ```
-host=<local-ip> port=8080 make run-feed-generator
+host=<local-ip> port=8080 title='TGS Podcast' dir_to_expose='tgs_podcast'  make run-feed-generator
 ```
 
 ## Acccess

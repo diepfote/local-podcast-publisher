@@ -22,8 +22,10 @@ import sys
 # Order the results by the time they were published, newest to oldest.
 # query.orderby = 'published'
 
+import urllib
 path = sys.argv[2]
-base_url = 'http://' + sys.argv[1] + '/' + path
+base_url = 'http://' + sys.argv[1] + \
+            '/' +  urllib.parse.quote(path)
 podcast_name = sys.argv[3]
 
 # feed = yt_service.YouTubeQuery(query)
