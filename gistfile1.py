@@ -132,7 +132,7 @@ for link in links:
     # Set the published date of the podcast.
     date = subprocess.check_output(['ffprobe-get-date',
                                     path + '/' + filename])
-    entry.pubdate('{} 00:00 +0000'.format(date.decode('utf-8')))
+    entry.pubDate('{} 00:00 +0000'.format(date.decode('utf-8')))
 
     # For some reason many podcast clients use the artwork from the episodes instead of the show itself, set the same image here.
     entry.podcast.itunes_image('http://alientube.co/artwork.jpg')

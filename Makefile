@@ -11,8 +11,7 @@ run-file-server:
 		docker.io/library/nginx:1.21.3-alpine
 
 
-# call like this:
-# $ host="$(local-ip)" port=8080 make run-feed-generator
+# calling convention -> README
 #
 .PHONY: run-feed-generator
 run-feed-generator:
