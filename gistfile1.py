@@ -6,7 +6,7 @@
 from bs4 import BeautifulSoup
 from feedgen.feed import FeedGenerator, FeedEntry
 from urllib import request
-from urllib.parse import unquote
+from urllib.parse import unquote, quote
 import datetime
 import re
 import subprocess
@@ -23,8 +23,9 @@ import sys
 # query.orderby = 'published'
 
 import urllib
+host = sys.argv[1]
 path = sys.argv[2]
-base_url = 'http://' + sys.argv[1] + \
+base_url = 'http://' + host + \
             '/' +  urllib.parse.quote(path)
 podcast_name = sys.argv[3]
 
@@ -44,6 +45,7 @@ fg.link( href=base_url, rel='alternate' )
 # Set the title and description of the podcast. I was not able to find a good description so I used the one from the first podcast
 # let me know if anyone has ideas for a better description
 fg.title(podcast_name)
+fg.image('http://' + host + '/' + quote(podcast_name) + '.jpg')
 
 show_description = podcast_name
 fg.subtitle(show_description)
