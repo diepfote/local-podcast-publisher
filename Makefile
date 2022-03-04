@@ -2,8 +2,8 @@ SHELL := bash
 
 .PHONY: run-file-server
 run-file-server:
-	# forward tailscale ip to localhost (lima vm)
-	ssh -vv -p 60906 -f -NT -L "$(head -n 1 ~/Documents/config/tailscale.conf)":8080:localhost:8080  localhost
+	# forward tailscale ip port 80 to localhost (lima vm)
+	sudo ssh -p 60906 -f -NT -L mac-box:80:localhost:8080  florian@localhost -i ~/.ssh/id_rsa
 	sudo -k
 	docker run --rm --name blub -p 8080:8080 \
 		-v "$(shell pwd)"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
