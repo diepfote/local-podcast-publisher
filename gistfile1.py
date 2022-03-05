@@ -45,7 +45,9 @@ fg.link( href=base_url, rel='alternate' )
 # Set the title and description of the podcast. I was not able to find a good description so I used the one from the first podcast
 # let me know if anyone has ideas for a better description
 fg.title(podcast_name)
-fg.image('http://' + host + '/' + quote(podcast_name) + '.jpg')
+
+image_location = 'http://' + host + '/' + quote(podcast_name) + '.jpg'
+fg.image(image_location)
 
 show_description = podcast_name
 fg.subtitle(show_description)
@@ -70,7 +72,7 @@ fg.podcast.itunes_author('None')
 fg.podcast.itunes_explicit('yes')
 
 # Set the display image of the podcast.
-# fg.podcast.itunes_image('http://alientube.co/artwork.jpg')
+# fg.podcast.itunes_image(image_location)
 
 # The RSS library requires me to put an Email address for some reason so I made one up, don't bother trying this address.
 fg.podcast.itunes_owner('BLUB', 'some@other.co.uk')
@@ -137,7 +139,7 @@ for link in links:
     entry.pubDate('{} 00:00 +0000'.format(date.decode('utf-8')))
 
     # For some reason many podcast clients use the artwork from the episodes instead of the show itself, set the same image here.
-    entry.podcast.itunes_image('http://alientube.co/artwork.jpg')
+    entry.podcast.itunes_image(image_location)
 
     # They swear a fair bit so we will set the explicit tag in case it may be useful to someone.
     entry.podcast.itunes_explicit('yes')
