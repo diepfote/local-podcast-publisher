@@ -17,7 +17,7 @@ run-file-server:
 .PHONY: run-feed-generator
 run-feed-generator:
 	source .venv/bin/activate; \
-		./gistfile1.py "${host}":"${port}" "${dir_to_expose}"/ "${title}"
+		./gistfile1.py "${host}":"${port}" "${dir_to_expose}" "${title}"
 
 .PHONY: install
 install:
