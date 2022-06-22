@@ -1,10 +1,14 @@
 SHELL := bash
 
+
 .PHONY: run-file-server
 run-file-server:
 	# forward tailscale ip port 80 to localhost (lima vm)
-	sudo ssh -p 60906 -f -NT -L podcast-svc-org:80:localhost:8080  lima@localhost -i ~/.ssh/id_rsa
-	sudo -k
+	if [ $(shell uname) = Darwin ]; then \
+		sudo ssh -p 60906 -f -NT -L podcast-svc-org:80:localhost:8080  lima@localhost -i ~/.ssh/id_rsa; \
+		sudo -k; \
+	fi
+
 	docker run --rm --name blub -p 8080:8080 \
 		-v "$(shell pwd)"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
 		-v "$(shell pwd)":/data \
