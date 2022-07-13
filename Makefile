@@ -13,7 +13,7 @@ run-file-server:
 		-v "$(shell pwd)"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
 		-v "$(shell pwd)":/data \
 		-it \
-		docker.io/library/nginx:1.21.3-alpine
+		docker.io/library/nginx:1.23-alpine
 
 
 # calling convention -> README
