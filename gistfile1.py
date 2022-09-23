@@ -25,8 +25,7 @@ import sys
 import urllib
 host = sys.argv[1]
 path = sys.argv[2]
-base_url = 'http://' + host + \
-            '/' +  urllib.parse.quote(path)
+base_url = f'http://{host.rstrip("/")}/{urllib.parse.quote(path.rstrip("/") + "/")}'
 podcast_name = sys.argv[3]
 
 # feed = yt_service.YouTubeQuery(query)
@@ -88,12 +87,12 @@ basic_ffprobe_command = ['ffprobe', '-v', 'quiet', '-of',
 for link in links:
     filename = unquote(link['href'])
     # Set the download link as the result.
-    item_url = base_url + '/' + link['href']
+    item_url = f'{base_url.rstrip("/")}/{link["href"]}'
 
     # Podcast clients expcept the description to be in HTML so we have to format it as such. We will wrap all links in an html anchor tag.
     get_description_ffprobe = basic_ffprobe_command[:-1]
     get_description_ffprobe.append(basic_ffprobe_command[-1] + 'description')
-    get_description_ffprobe.append(path + '/' + filename)
+    get_description_ffprobe.append(f'{path.rstrip("/")}/{filename}')
 
 
     formatted_description = subprocess.check_output(get_description_ffprobe).decode('utf-8')
@@ -113,7 +112,7 @@ for link in links:
     # Set the title of this podcast episode.
     get_title_ffprobe = basic_ffprobe_command[:-1]
     get_title_ffprobe.append(basic_ffprobe_command[-1] + 'title')
-    get_title_ffprobe.append(path + '/' + filename)
+    get_title_ffprobe.append(f'{path.rstrip("/")}/{filename}')
     title = subprocess.check_output(get_title_ffprobe).decode('utf-8')
     title = regexp_quotes.sub('', title)
     entry.title(title)
@@ -127,7 +126,8 @@ for link in links:
 
     # Set the duration/length of the podcast, converting it from number of seconds to H:m:s
     duration = subprocess.check_output(['ffprobe-get-duration',
-                                        path + '/' + filename])
+                                       f'{path.rstrip("/")}/{filename}'])
+
 
     duration = duration.split(b'.')[0].decode('utf-8')
     duration = int(duration)
@@ -135,7 +135,7 @@ for link in links:
 
     # Set the published date of the podcast.
     date = subprocess.check_output(['ffprobe-get-date',
-                                    path + '/' + filename])
+                                   f'{path.rstrip("/")}/{filename}'])
     entry.pubDate('{} 00:00 +0000'.format(date.decode('utf-8')))
 
     # For some reason many podcast clients use the artwork from the episodes instead of the show itself, set the same image here.
