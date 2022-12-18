@@ -4,10 +4,10 @@ SHELL := bash
 .PHONY: run-file-server
 run-file-server:
 	# default lima port 60906
-	# colima port 50941
+	# colima port 56694
 	# forward tailscale ip port 80 to localhost (lima vm)
 	if [ $(shell uname) = Darwin ]; then \
-		sudo ssh -p 60906  -f -NT -L podcast-svc-org:80:localhost:10080  lima@localhost -i ~/.ssh/id_rsa || exit 1; \
+		sudo ssh -p 56694  -f -NT -L podcast-svc-org:80:localhost:10080  lima@localhost -i ~/.ssh/id_rsa || exit 1; \
 		sudo -k; \
 	fi
 
