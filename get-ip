@@ -1,0 +1,3 @@
+#!/usr/bin/env bash
+
+awk '{ if ($1 == "Port")  { print $2 } }' ~/.colima/ssh_config
