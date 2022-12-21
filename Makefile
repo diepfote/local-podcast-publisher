@@ -5,7 +5,7 @@ IP := $(shell ./get-ip)
 .PHONY: run-file-server
 run-file-server:
 	# default lima port 60906
-	# colima port: "$( grep Port ~/.colima/ssh_config  | awk '{ print $2 }' )"
+	# colima port: check ./get-ip
 	#
 	# forward tailscale ip port 80 to localhost (lima vm)
 	if [ $(shell uname) = Darwin ]; then \
