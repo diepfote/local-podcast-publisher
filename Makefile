@@ -1,24 +1,8 @@
 SHELL := bash
 
-IP := $(shell ./get-ip)
-
 .PHONY: run-file-server
 run-file-server:
-	# default lima port 60906
-	# colima port: check ./get-ip
-	#
-	# forward tailscale ip port 80 to localhost (lima vm)
-	if [ $(shell uname) = Darwin ]; then \
-		sudo ssh -p "${IP}" -f -NT -L podcast-svc-org:80:localhost:10080  lima@localhost -i ~/.ssh/id_rsa || exit 1; \
-		sudo -k; \
-	fi
-
-	docker run --rm --name blub -p 10080:8080 \
-		-v "$(shell pwd)"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
-		-v "$(shell pwd)":/data \
-		-it \
-		docker.io/library/nginx:1.23-alpine
-
+	./run-file-server.sh
 
 # calling convention -> README
 #

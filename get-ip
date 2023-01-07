@@ -1,3 +1,0 @@
-#!/usr/bin/env bash
-
-grep -m 1 -rFi '"sshLocalPort":' ~/.lima/colima/ha.stdout.log | jq --raw-output .status.sshLocalPort
