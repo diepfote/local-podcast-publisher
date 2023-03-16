@@ -1,10 +1,22 @@
 # Podcast Publisher
 
+
 ## Feed generator package installation
+
+### Dependencies
+
+* ffmpeg
+* python 3 (tested on 3.9 and above)
+* python libraries (installed via `Makefile` [command](https://github.com/diepfote/local-podcast-publisher/blob/35964a5faf979fdfcac88453f497b230c0535fee/Makefile#L19))
+* [`gistfile1.py`](https://github.com/diepfote/local-podcast-publisher/blob/e39278cdb17020d1dc616537316289ad45fd4563/gistfile1.py) contains references to custom written `ffmpeg` and `ffprobe`
+[scripts](https://github.com/diepfote/scripts/tree/8611a9d9a6cf6b29d47b5175d1ae594f36991651/bin).
+
+### Install
 
 ```
 make install
 ```
+
 
 ## Run
 
