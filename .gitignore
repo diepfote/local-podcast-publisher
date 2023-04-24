@@ -1,0 +1,20 @@
+*
+**
+
+!.gitignore
+
+!TGS Podcast.xml
+!apology-line-rss-example.xml
+
+!etc/
+!etc/nginx
+!etc/nginx/conf.d
+!etc/nginx/conf.d/default.conf
+
+!LICENSE
+!Makefile
+!README.md
+
+!gistfile1.py
+!requirements.txt
+!run-file-server.sh
