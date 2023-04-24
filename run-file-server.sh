@@ -31,7 +31,7 @@ if [ "$kernel" = Darwin ]; then
   # forward tailscale ip port 80 to localhost (lima vm)
   IP="$(grep -m 1 -rFi '"sshLocalPort":' ~/.lima/colima/ha.stdout.log | jq --raw-output .status.sshLocalPort)"
   set -x
-  sudo ssh -p "${IP}" -f -NT -L podcast-svc-org:80:localhost:10080  lima@localhost -i ~/.ssh/id_rsa
+  sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${IP}" -f -NT -L podcast-svc-org:80:localhost:10080  lima@localhost -i ~/.ssh/id_rsa
 
 elif [ "$kernel" = Linux ]; then
   set -x

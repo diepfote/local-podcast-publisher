@@ -13,36 +13,22 @@ import subprocess
 import sys
 
 
-# Search YouTube for all queries starting with "The Nerd³ Podcast - Episode" made by the account officiallynerdcubed,
-# yt_service = gdata.youtube.service.YouTubeService()
-# query = gdata.youtube.service.YouTubeVideoQuery()
-# query.vq = '\"The Nerd³ Podcast - Episode\"'
-# query.author = 'officiallynerdcubed'
-
-# Order the results by the time they were published, newest to oldest.
-# query.orderby = 'published'
-
 import urllib
 host = sys.argv[1]
 path = sys.argv[2]
 base_url = f'http://{host.rstrip("/")}/{urllib.parse.quote(path.rstrip("/") + "/")}'
 podcast_name = sys.argv[3]
 
-# feed = yt_service.YouTubeQuery(query)
 raw_html = subprocess.check_output(['curl', '-Ls', base_url])
 parsed_html = BeautifulSoup(raw_html)
 
 
-# Create a new RSS feed list.
 fg = FeedGenerator()
 fg.load_extension('podcast')
 
-# Set the id and "home link" of this feed as the officiallynerdcubed YouTube channel
 fg.id(base_url)
 fg.link( href=base_url, rel='alternate' )
 
-# Set the title and description of the podcast. I was not able to find a good description so I used the one from the first podcast
-# let me know if anyone has ideas for a better description
 fg.title(podcast_name)
 
 image_location = 'http://' + host + '/' + quote(podcast_name) + '.jpg'
@@ -54,28 +40,17 @@ fg.description(show_description)
 fg.podcast.itunes_summary(show_description)
 fg.podcast.itunes_subtitle(show_description)
 
-# Set the author of the podcast
-# TODO from vid
 fg.author(
     {'name':'None'},
 )
 
-# Set the language of the podcast as Traditional English.
 fg.language('en-GB')
 
-# While we are not on iTunes many podcast clients depend on iTunes specific information like categories to sort the podcasts
-# So I include this information anyway.
 fg.podcast.itunes_category('Games & Hobbies', 'Video Games')
-# TODO from vid
 fg.podcast.itunes_author('None')
 fg.podcast.itunes_explicit('yes')
 
-# Set the display image of the podcast.
-# fg.podcast.itunes_image(image_location)
-
-# The RSS library requires me to put an Email address for some reason so I made one up, don't bother trying this address.
 fg.podcast.itunes_owner('BLUB', 'some@other.co.uk')
-
 
 links = parsed_html.body.find_all('a')
 links = links[1:]
@@ -96,16 +71,13 @@ for link in links:
 
 
     formatted_description = subprocess.check_output(get_description_ffprobe).decode('utf-8')
-    # formatted_description = re.compile(ur'(?i)\b((?:https?://|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'".,<>?\xab\xbb\u201c\u201d\u2018\u2019]))').sub(r'<a href="\1">\1</a>', formatted_description)
     # Replace all linebreak characters with an HTML linebreak tag.
     regex = '(^"|"\n$)'
     regexp_quotes = re.compile(regex, (re.M|re.DOTALL))
-    # import ipdb; ipdb.set_trace()
     formatted_description = regexp_quotes.sub('', formatted_description)
     formatted_description = formatted_description.replace('\n', '<br />')
 
 
-    # Create the RSS entry for this podcast item.
     entry = FeedEntry()
     entry.load_extension('podcast')
 
@@ -144,15 +116,12 @@ for link in links:
     # They swear a fair bit so we will set the explicit tag in case it may be useful to someone.
     entry.podcast.itunes_explicit('yes')
 
-    # Set podcast episode author
-    entry.podcast.itunes_author('Daniel Hardcastle & Wot Fanar')
-
-    # Set the episode summary as the first line of the YouTube description.
     episode_summary = formatted_description[0]
     entry.podcast.itunes_summary(episode_summary)
     entry.podcast.itunes_subtitle(episode_summary)
 
     # Connect to the episode download link without downloading and grab the HTTP headers.
+    # extracts Content-Length and Content-Type
     site = request.urlopen(item_url)
     meta = site.info()
 
