@@ -44,5 +44,5 @@ docker run --rm --name blub -p 10080:8080 \
   -v "$PWD"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
   -v "$PWD":/data \
   -it \
-  docker.io/library/nginx:1.25-alpine
+  docker.io/library/nginx:1.25.2-alpine
 

@@ -5,4 +5,4 @@ feedgen==0.9.0
 lxml==4.9.3
 python-dateutil==2.8.2
 six==1.16.0
-soupsieve==2.4.1
+soupsieve==2.5
