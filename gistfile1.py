@@ -87,7 +87,7 @@ for link in links:
     get_title_ffprobe.append(f'{path.rstrip("/")}/{filename}')
     title = subprocess.check_output(get_title_ffprobe).decode('utf-8')
     title = regexp_quotes.sub('', title)
-    regex = '^\s*$'
+    regex = '^\\s*$'
     regex_ws = re.compile(regex, (re.M|re.DOTALL))
     if regex_ws.match(title):
         title = filename
