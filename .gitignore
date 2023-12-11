@@ -17,4 +17,4 @@
 
 !gistfile1.py
 !requirements.txt
-!run-file-server.sh
+!*.sh
