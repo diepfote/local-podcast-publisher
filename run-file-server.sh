@@ -17,6 +17,7 @@ cleanup () {
   if [ "$kernel" = Linux ]; then
     set -x
     sudo sed -i -r 's/^(.*INPUT.*10080.*)/#\1/' "$iptables_filename"
+    sudo systemctl restart iptables.service
     set +x
   fi
 
@@ -37,6 +38,7 @@ if [ "$kernel" = Darwin ]; then
 elif [ "$kernel" = Linux ]; then
   set -x
   sudo sed -i -r 's/^#(.*INPUT.*10080.*)/\1/' "$iptables_filename"
+  sudo systemctl restart iptables.service
 else
   exit 1
 fi
