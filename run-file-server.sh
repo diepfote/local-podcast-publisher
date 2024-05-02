@@ -43,9 +43,9 @@ else
   exit 1
 fi
 
-docker run --rm --name blub -p 10080:8080 \
+bash ~/Documents/scripts/bin/darwin/docker run --rm --name blub -p 10080:8080 \
   -v "$PWD"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
   -v "$PWD":/data \
   -it \
-  docker.io/library/nginx:1.25.3-alpine
+  docker.io/library/nginx:1.25.5-alpine
 
