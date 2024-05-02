@@ -9,8 +9,8 @@ shopt -s failglob  # error on unexpaned globs
 shopt -s inherit_errexit  # Bash disables set -e in command substitution by default; reverse this behavior
 
 if [ "$1" = id_file ]; then
-  grep IdentityFile ~/.colima/ssh_config | awk -F '"' '{ print $2 }'
+  grep IdentityFile ~/.colima/_lima/colima/ssh.config | awk -F '"' '{ print $2 }'
 elif [ "$1" = port ]; then
-  grep Port ~/.colima/ssh_config | awk '{ print $2 }'
+  grep Port ~/.colima/_lima/colima/ssh.config | awk '{ print $2 }'
 fi
 
