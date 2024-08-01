@@ -16,8 +16,19 @@ trap cleanup EXIT
 cleanup () {
   if [ "$kernel" = Linux ]; then
     set -x
-    sudo sed -i -r 's/^(.*INPUT.*10080.*)/#\1/' "$iptables_filename"
-    sudo systemctl restart iptables.service
+    sudo systemctl stop tailscaled
+    sudo pkill ssh
+  # @TODO delete rule instead of restarting?
+  # [root@frame ~]# nft add rule ip filter TCP tcp dport 80 accept
+  # [root@frame ~]# nft -a list chain ip filter TCP
+  # table ip filter {
+  #         chain TCP { # handle 4
+  #                 tcp dport 80 accept # handle 31
+  #         }
+  # }
+  # [root@frame ~]# nft delete rule ip filter TCP handle 31
+    sudo systemctl restart nftables
+
     set +x
   fi
 
@@ -37,8 +48,10 @@ if [ "$kernel" = Darwin ]; then
 
 elif [ "$kernel" = Linux ]; then
   set -x
-  sudo sed -i -r 's/^#(.*INPUT.*10080.*)/\1/' "$iptables_filename"
-  sudo systemctl restart iptables.service
+  sudo systemctl start tailscaled
+  sudo ssh -NT -f -i ~/.ssh/podman-remote -L frame:80:localhost:10080 "$USER"@localhost
+  nft add rule ip filter TCP tcp dport 80 accept
+
 else
   exit 1
 fi
