@@ -17,6 +17,7 @@ cleanup () {
   if [ "$kernel" = Linux ]; then
     set -x
     sudo systemctl stop tailscaled
+    sudo systemctl stop sshd
     sudo pkill ssh
   # @TODO delete rule instead of restarting?
   # [root@frame ~]# nft add rule ip filter TCP tcp dport 80 accept
@@ -49,16 +50,17 @@ if [ "$kernel" = Darwin ]; then
 elif [ "$kernel" = Linux ]; then
   set -x
   sudo systemctl start tailscaled
+  sudo systemctl start sshd
   sudo ssh -NT -f -i ~/.ssh/podman-remote -L frame:80:localhost:10080 "$USER"@localhost
-  nft add rule ip filter TCP tcp dport 80 accept
+  sudo nft add rule ip filter TCP tcp dport 80 accept
 
 else
   exit 1
 fi
 
-bash ~/Documents/scripts/bin/darwin/docker run --rm --name blub -p 10080:8080 \
+  docker run --rm --name blub -p 10080:8080 \
   -v "$PWD"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
   -v "$PWD":/data \
   -it \
-  docker.io/library/nginx:1.25.5-alpine
+  docker.io/library/nginx:1.27.2-alpine
 
