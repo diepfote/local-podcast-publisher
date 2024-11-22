@@ -17,8 +17,8 @@ cleanup () {
   if [ "$kernel" = Linux ]; then
     set -x
     sudo systemctl stop tailscaled
+    sudo killport 80
     sudo systemctl stop sshd
-    sudo pkill ssh
   # @TODO delete rule instead of restarting?
   # [root@frame ~]# nft add rule ip filter TCP tcp dport 80 accept
   # [root@frame ~]# nft -a list chain ip filter TCP
@@ -51,8 +51,21 @@ elif [ "$kernel" = Linux ]; then
   set -x
   sudo systemctl start tailscaled
   sudo systemctl start sshd
-  sudo ssh -NT -f -i ~/.ssh/podman-remote -L frame:80:localhost:10080 "$USER"@localhost
   sudo nft add rule ip filter TCP tcp dport 80 accept
+
+  # ---------------------------------
+  # this step could not be automated:
+  # we need to run `sudo killport 80` & run this after this script starts the container
+  set +x
+  source ~/Documents/scripts/source-me/colors.sh  || true
+  echo -e "${RED}Please run this after the container starts$NC:"
+  echo -n "$YELLOW"
+  echo 'sudo killport 80'
+  echo 'sudo /usr/bin/ssh -NT -f -i ~/.ssh/podman-remote -L frame:80:localhost:10080 "$USER"@localhost'
+  echo -n "$NC"
+  sleep 5
+  set -x
+  # ---------------------------------
 
 else
   exit 1

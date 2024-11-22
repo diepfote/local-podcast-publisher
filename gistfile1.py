@@ -61,7 +61,8 @@ basic_ffprobe_command = ['ffprobe', '-v', 'quiet', '-of',
 
 for link in links:
     filename = unquote(link['href'])
-    if filename.endswith('.mp4'):
+    if filename.endswith('.mp4') or \
+       filename.endswith('.pdf'):
         continue
     # Set the download link as the result.
     item_url = f'{base_url.rstrip("/")}/{link["href"]}'
