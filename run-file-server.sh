@@ -17,7 +17,7 @@ cleanup () {
   if [ "$kernel" = Linux ]; then
     set -x
     sudo systemctl stop tailscaled
-    sudo killport 80
+    sudo "$HOME"/.cargo/bin/killport 80
     sudo systemctl stop sshd
   # @TODO delete rule instead of restarting?
   # [root@frame ~]# nft add rule ip filter TCP tcp dport 80 accept
