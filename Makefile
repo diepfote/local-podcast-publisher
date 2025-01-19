@@ -2,7 +2,7 @@ SHELL := bash
 
 .PHONY: run-file-server
 run-file-server:
-	./run-file-server.sh
+	./bin/run-file-server.sh
 
 # calling convention -> README
 #

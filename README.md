@@ -45,3 +45,13 @@ For as long as your `<local-ip>` stays the same,
 you can use this podcast feed to make episodes
 available offline.
 
+
+## Automate ssh port-forward
+
+```text
+cd bin
+go build port-forward-80-linux.go  -o port-forward-80
+sudo chown root:root port-forward-80
+sudo chmod u+s port-forward-80
+```
+
