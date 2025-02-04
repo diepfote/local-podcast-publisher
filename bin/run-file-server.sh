@@ -47,8 +47,10 @@ if [ "$kernel" = Darwin ]; then
   # forward tailscale ip port 80 to localhost (lima vm)
   port="$("$(dirname "$0")"/run-file-server-extract.sh port)"
   id_file="$("$(dirname "$0")"/run-file-server-extract.sh id_file)"
-  set -x
-  sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${port}" -f -NT -L podcast-svc-org:80:localhost:10080  lima@localhost -i "$id_file"
+
+  # taken care of by ./port-forward-80
+  # set -x
+  # sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${port}" -f -NT -L podcast-svc-org:80:localhost:10080  lima@localhost -i "$id_file"
 
 elif [ "$kernel" = Linux ]; then
   set -x
@@ -77,9 +79,13 @@ fi
 docker run --rm --name blub -p 10080:8080 \
   -v "$PWD"/etc/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf \
   -v "$PWD":/data \
-  -it \
   docker.io/library/nginx:1.27.2-alpine  &
 
 sleep 10
-"$(dirname "$0")"/port-forward-80
+
+if [ "$kernel" = Darwin ]; then
+  alacritty -e "$(realpath "$(dirname "$0")")"/port-forward-80 "$id_file" "$port"
+else
+  "$(dirname "$0")"/port-forward-80
+fi
 
