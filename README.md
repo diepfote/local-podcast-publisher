@@ -85,3 +85,10 @@ sed -i 's#"$PWD"/etc/nginx/conf.d#"$PWD"/audio-only/etc/nginx/conf.d#' audio-onl
 
 $ cd ~/Movies && make
 ```
+
+
+## Notes on Mac OS
+
+* Make sure to allow full disk access for `/opt/homebrew/bin/bash`, `Alacritty.app`, `/bin/bash` and `/bin/zsh`.
+* Also be sure to (since Sequoia) allow `Local Network` access to `Alacritty.app` (we have to run it without `tmux` in plain `Alacritty` otherwise we will not be able to forward ports on this Mac OS version).
+
