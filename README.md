@@ -55,3 +55,33 @@ sudo chown root:root port-forward-80
 sudo chmod u+s port-forward-80
 ```
 
+## Expose all videos instead of podcasts
+
+**Note**: Very specific to my setup (FS layout).
+
+```text
+$ cat ~/Movies/Makefile
+SHELL := bash
+
+.PHONY: run-file-server
+run-file-server:
+    ./.bin/serve-files.sh
+
+$ cat ~/Movies/.bin/serve-files.sh
+#!/usr/bin/env bash
+
+set -x
+
+cleanup () {
+  cd audio-only && git checkout -- bin/run-file-server.sh
+  set +x
+}
+trap cleanup EXIT
+
+# shellcheck disable=SC2016
+sed -i 's#"$PWD"/etc/nginx/conf.d#"$PWD"/audio-only/etc/nginx/conf.d#' audio-only/bin/run-file-server.sh
+
+./audio-only/bin/run-file-server.sh
+
+$ cd ~/Movies && make
+```
