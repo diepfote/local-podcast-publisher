@@ -22,5 +22,8 @@
 !README.md
 
 !gistfile1.py
-!requirements.txt
 !*.sh
+
+!uv.lock
+!pyproject.toml
+!.python-version
