@@ -11,10 +11,3 @@ run-feed-generator:
 	source .venv/bin/activate; \
 		./gistfile1.py "${host}":"${port}" "${dir_to_expose}" "${title}"
 
-.PHONY: install
-install:
-	deactivate; rm -r .venv; \
-		virtualenv -p python3 .venv; \
-		source .venv/bin/activate; \
-		pip install -r requirements.txt
-
