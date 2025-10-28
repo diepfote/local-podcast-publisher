@@ -27,3 +27,4 @@
 !uv.lock
 !pyproject.toml
 !.python-version
+!.envrc
