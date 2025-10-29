@@ -50,7 +50,7 @@ if [ "$kernel" = Darwin ]; then
 
   # taken care of by ./port-forward-80
   # set -x
-  # sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${port}" -f -NT -L podcast-svc-org:80:localhost:10080  lima@localhost -i "$id_file"
+  # sudo ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p "${port}" -f -NT -L mac:80:localhost:10080  lima@localhost -i "$id_file"
 
 elif [ "$kernel" = Linux ]; then
   set -x

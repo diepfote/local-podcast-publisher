@@ -19,7 +19,7 @@ func main() {
 	idFile := os.Args[1]
 	port := os.Args[2]
 
-	cmd := exec.Command("ssh", "-o", "StrictHostKeychecking=no", "-NT", "-i", idFile, "-p", port, "-L", "podcast-svc-org:80:localhost:10080", "lima@localhost")
+	cmd := exec.Command("ssh", "-o", "StrictHostKeychecking=no", "-NT", "-i", idFile, "-p", port, "-L", "mac:80:localhost:10080", "lima@localhost")
 	fmt.Printf("port: %s, id_file: %s\n", port, idFile)
 	cmd.Start()
 
