@@ -62,7 +62,7 @@ elif [ "$kernel" = Linux ]; then
   # this step could not be automated:
   # we need to run `sudo killport 80` & run this after this script starts the container
   set +x
-  source ~/Documents/scripts/source-me/colors.sh  || true
+  source ~/Repos/scripts/source-me/colors.sh  || true
   echo -e "${RED}Please run this after the container starts$NC:"
   echo -n "$YELLOW"
   echo 'sudo killport 80'
