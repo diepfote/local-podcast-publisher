@@ -1,5 +1,43 @@
 # Podcast Publisher
 
+Makes Podcasts available/downloadable on the local network.
+Particularly useful if no-one officially published it to a podcasting platform.
+
+In other words it is a RSS generator.
+
+## How it works
+
+* nginx to hosts files and reports metadata such as content-length to the generation script (gistfile1.py)
+* gistfile1.py shells out to ffprobe helpers to fetch description, publishing date
+* itunes extensions category, author and explicit tag are hardcoded
+
+Thus, the container needs a host mount and needs to have access to the same data
+the ffprobe helpers need to have access to.
+
+To generate rss feeds for multiple podcasts you need to call gistfile1.py several times
+while the container is running.
+
+Well. This sounds clunky but it works.
+
+### Alternative 
+
+I was recently looking for a simpler alternative (a single binary specifically) and 
+came across a rust project called [localhost-podcast](https://sr.ht/~j_wernick/localhost-podcast/).
+It works quiet well as it is but it is missing:
+
+* an index.html that lists your podcasts
+* the ability to bind a specific ipv4 interface
+* metadata extraction for date and description
+
+It's hosted on SourceHut which is why I will not be "forking" it or repushing the
+the code to my account.
+My changes are submitted although one of them seems to be held up by a email filter.
+Maybe because it's the largest change.
+
+TL;DR I created a gist for it and will be archiving this project.
+
+[Gist](https://gist.github.com/diepfote/59aaf5eb8ea3e2d7bcdd97b8efd2a472)
+
 
 ## Feed generator package installation
 
